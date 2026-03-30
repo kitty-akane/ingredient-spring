@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import prog3.springboot.td5.dto.StockResponse;
 import prog3.springboot.td5.entity.Ingredient;
 import prog3.springboot.td5.service.IngredientService;
 
@@ -45,6 +46,6 @@ public class IngredientController {
                 .body("Ingredient.id=" + id + " is not found");
         }
         Double stock = service.getStockAt(id, Instant.parse(at), unit);
-        return ResponseEntity.ok(stock);
+        return ResponseEntity.ok(new StockResponse(unit, stock));
     }
 }
