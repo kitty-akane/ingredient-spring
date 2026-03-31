@@ -48,4 +48,5 @@ public class IngredientController {
         Double stock = service.getStockAt(id, Instant.parse(at), unit);
         return ResponseEntity.ok(new StockResponse(unit, stock));
     }
+    @
 }

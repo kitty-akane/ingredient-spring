@@ -36,4 +36,5 @@ public class DishController {
         }
         return ResponseEntity.ok(service.updateIngredients(id, ingredients));
     }
+    
 }

@@ -21,12 +21,12 @@ public class DishRepository {
 
     public List<Dish> findAll() {
         List<Dish> dishes = jdbc.query(
-            "SELECT id, name, dish_type, selling_price FROM Dish",
+            "SELECT id, name, dish_type_enum, selling_price FROM Dish",
             (rs, row) -> {
                 Dish d = new Dish();
                 d.setId(rs.getInt("id"));
                 d.setName(rs.getString("name"));
-                d.setDishType(DishTypeEnum.valueOf(rs.getString("dish_type")));
+                d.setDishType(DishTypeEnum.valueOf(rs.getString("dish_type_enum")));
                 d.setPrice(rs.getObject("selling_price") != null
                     ? rs.getDouble("selling_price") : null);
                 return d;
@@ -38,12 +38,12 @@ public class DishRepository {
 
     public Optional<Dish> findById(int id) {
         List<Dish> result = jdbc.query(
-            "SELECT id, name, dish_type, selling_price FROM Dish WHERE id = ?",
+            "SELECT id, name, dish_type_enum, selling_price FROM Dish WHERE id = ?",
             (rs, row) -> {
                 Dish d = new Dish();
                 d.setId(rs.getInt("id"));
                 d.setName(rs.getString("name"));
-                d.setDishType(DishTypeEnum.valueOf(rs.getString("dish_type")));
+                d.setDishType(DishTypeEnum.valueOf(rs.getString("dish_type_enum")));
                 d.setPrice(rs.getObject("selling_price") != null
                     ? rs.getDouble("selling_price") : null);
                 return d;
