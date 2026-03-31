@@ -48,5 +48,32 @@ public class IngredientController {
         Double stock = service.getStockAt(id, Instant.parse(at), unit);
         return ResponseEntity.ok(new StockResponse(unit, stock));
     }
-    @
+    @GetMapping("/{id}/stockMovements")
+public ResponseEntity<?> getStockMovements(
+        @PathVariable int id,
+        @RequestParam(required = false) String from,
+        @RequestParam(required = false) String to) {
+    if (service.getById(id).isEmpty()) {
+        return ResponseEntity.status(404)
+            .body("Ingredient.id=" + id + " is not found");
+    }
+    List<StockMovement> movements = service.getStockMovements(
+        id,
+        Instant.parse(from),
+        Instant.parse(to)
+    );
+    return ResponseEntity.ok(movements);
+}
+
+@PostMapping("/{id}/stockMovements")
+public ResponseEntity<?> addStockMovements(
+        @PathVariable int id,
+        @RequestBody List<StockMovementRequest> requests) {
+    if (service.getById(id).isEmpty()) {
+        return ResponseEntity.status(404)
+            .body("Ingredient.id=" + id + " is not found");
+    }
+    return ResponseEntity.status(201)
+        .body(service.addStockMovements(id, requests));
+}
 }
